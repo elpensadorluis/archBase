@@ -18,10 +18,10 @@ echo "Recuerda crear las particiones en el siguiente orden: Boot,Raiz,Swap,home"
 cfdisk -z /dev/sda
 fdisk -l
 echo "formateando particiones..."
-mkfs.vfat -F32 /dev/sda1
-mkfs.ext4 /dev/sda2
-mkfs.ext4 /dev/sda4
-mkswap /dev/sda3
+yes | mkfs.vfat -F32 /dev/sda1
+yes | mkfs.ext4 /dev/sda2
+yes | mkfs.ext4 /dev/sda4
+yes | mkswap /dev/sda3
 swapon /dev/sda3
 
 echo "───────────────────────────────────┤.montando particiones├─"
