@@ -31,12 +31,15 @@ mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 mount /dev/sda4 /mnt/home
 
+echo "───────────────────────────────────┤.Instalando aplicaciones al sistema base├─"
 pacstrap /mnt base base-devel linux linux-firmware efibootmgr os-prober mtools ntfs-3g networkmanager gvfs gvfs-afc gvfs-mtp xdg-user-dirs
 pacstrap /mnt netctl wpa_supplicant dialog
 
 genfstab -pU /mnt >> /mnt/etc/fstab
 
 bash <(curl -o /mnt/installInChroot.sh https://raw.githubusercontent.com/elpensadorluis/archBase/master/installInChroot.sh)
+
+echo "copiando installInChroot.sh en la carpeta tmp"
 
 arch-chroot /mnt
 
