@@ -8,33 +8,16 @@ echo "│ ╚══════╝╚══════╝╚═╝  ╚══�
 echo "└────────────────────────────────────┤.studio├─┘"
 echo ""
 
-echo damocles > /etc/hostname
+sudo nmcli dev wifi connect $1 password $2
 
-ln -sf /usr/share/zoneinfo/America/Caracas /etc/localtime
+git clone https://aur.archlinux.org/yay-git.git
 
-hwclock -systohc
+cd yay-git
 
-echo LANG=es_VE.UTF-8 > /etc/locale.conf
+makepkg -si 
 
-locale-gen
+yay -S neovim-nightly
 
+bash <(curl -s https://raw.githubusercontent.com/elpensadorluis/nvim/master/utils/install.sh)
 
-echo KEYMAP=la-latin1 > /etc/vconsole.conf
-
-pacman -Sy efibootmgr dosfstools os-prober mtools grub vim
-
-grub-install --efi-directory=/boot/efi --bootloader-id='Arch Linux' --target=x86_64-efi
-
-grub-mkconfig -o /boot/grub/grub.cfg
-
-passwd
-
-useradd -m -g users -G audio,lp,optical,storage,video,wheel,games,power,scanner -s /bin/bash el
-
-passwd el
-
-bash <(curl -o /home/el/installInRoot.sh https://raw.githubusercontent.com/elpensadorluis/archBase/master/installInRoot.sh)
-
-rm /installInChroot.sh
-
-exit
+bash <(curl -o /home/el/installGraphics.sh https://raw.githubusercontent.com/elpensadorluis/archBase/master/installGraphics.sh)

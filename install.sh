@@ -11,6 +11,8 @@ echo ""
 echo "Usa la siguiente linea para instalar desde remoto"
 echo "bash <(curl -s https://raw.githubusercontent.com/elpensadorluis/archBase/master/install.sh)"
 
+loadkeys la-latin1
+
 timedatectl set-ntp true
 timedatectl status
 echo "───────────────────────────────────┤.particion del disco├─"
@@ -32,10 +34,10 @@ mount /dev/sda1 /mnt/boot/efi
 mount /dev/sda4 /mnt/home
 
 echo "───────────────────────────────────┤.Instalando aplicaciones al sistema base├─"
-pacstrap /mnt base base-devel linux linux-firmware efibootmgr os-prober mtools ntfs-3g networkmanager gvfs gvfs-afc gvfs-mtp xdg-user-dirs
+pacstrap /mnt base linux linux-firmware 
 pacstrap /mnt netctl wpa_supplicant dialog
 
-genfstab -pU /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >> /mnt/etc/fstab
 
 bash <(curl -o /mnt/installInChroot.sh https://raw.githubusercontent.com/elpensadorluis/archBase/master/installInChroot.sh)
 
