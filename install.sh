@@ -13,16 +13,36 @@ echo "bash <(curl -s https://raw.githubusercontent.com/elpensadorluis/archBase/m
 
 timedatectl set-ntp true
 timedatectl status
+echo "───────────────────────────────────┤.particion del disco├─"
+echo "Recuerda crear las particiones en el siguiente orden: Boot,Raiz,Swap,home"
+fdisk /dev/sda
+fdisk -l
+echo "formateando particiones..."
+mkfs.vfat -F32 /dev/sda1
+mkfs.ext4 /dev/sda2
+mkfs.ext4 /dev/sda4
+mkswap /dev/sda3
+swapon /dev/sda3
 
-# mount /dev/sda2 /mnt
-# mkdir /mnt/home
-# mkdir -p /mnt/boot/efi
-# mount /dev/sda1 /mnt/boot/efi
-# mount /dev/sda4 /mnt/home
+echo "───────────────────────────────────┤.montando particiones├─"
+mount /dev/sda2 /mnt
+mkdir /mnt/home
+mkdir -p /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
+mount /dev/sda4 /mnt/home
 
-pacstrap /mnt base base-devel efibootmgr os-prober ntfs-3g networkmanager gvfs gvfs-afc gvfs-mtp xdg-user-dirs
+pacstrap /mnt base base-devel linux linux-firmware efibootmgr os-prober mtools ntfs-3g networkmanager gvfs gvfs-afc gvfs-mtp xdg-user-dirs
 pacstrap /mnt netctl wpa_supplicant dialog
 
 genfstab -pU /mnt >> /mnt/etc/fstab
 
+bash <(curl -o /mnt/installInChroot.sh https://raw.githubusercontent.com/elpensadorluis/archBase/master/installInChroot.sh)
+
 arch-chroot /mnt
+
+echo "───────────────────────────────────┤.desmontando particiones├─"
+umount -R /mnt
+
+echo "Ahora toca reiniciar el sistema..."
+
+
