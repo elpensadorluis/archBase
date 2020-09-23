@@ -8,6 +8,12 @@ echo "│ ╚══════╝╚══════╝╚═╝  ╚══�
 echo "└────────────────────────────────────┤.studio├─┘"
 echo ""
 
+echo "Usa la siguiente linea para instalar desde remoto"
+echo "bash <(curl -s https://raw.githubusercontent.com/elpensadorluis/archBase/master/install.sh)"
+
+timedatectl set-ntp true
+timedatectl status
+
 # mount /dev/sda2 /mnt
 # mkdir /mnt/home
 # mkdir -p /mnt/boot/efi
@@ -20,30 +26,3 @@ pacstrap /mnt netctl wpa_supplicant dialog
 genfstab -pU /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt
-
-echo damocles > /etc/hostname
-
-ln -sf /usr/share/zoneinfo/America/Caracas /etc/localtime
-
-echo LANG=es_VE.UTF-8 > /etc/locale.conf
-
-locale-gen
-
-hwclock -w
-
-echo KEYMAP=la-latin1 > /etc/vconsole.conf
-
-grub-install --efi-directory=/boot/efi --bootloader-id='Arch Linux' --target=x86_64-efi
-
-grub-mkconfig -o /boot/grub/grub.cfg
-
-passwd
-
-useradd -m -g users -G audio,lp,optical,storage,video,wheel,games,power,scanner -s /bin/bash el
-
-passwd el
-
-exit
-
-umount -R /mnt
-
