@@ -20,6 +20,8 @@ hwclock -w
 
 echo KEYMAP=la-latin1 > /etc/vconsole.conf
 
+pacman -Sy efibootmgr dosfstools os-prober mtools
+
 grub-install --efi-directory=/boot/efi --bootloader-id='Arch Linux' --target=x86_64-efi
 
 grub-mkconfig -o /boot/grub/grub.cfg
