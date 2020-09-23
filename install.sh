@@ -15,7 +15,7 @@ timedatectl set-ntp true
 timedatectl status
 echo "───────────────────────────────────┤.particion del disco├─"
 echo "Recuerda crear las particiones en el siguiente orden: Boot,Raiz,Swap,home"
-fdisk /dev/sda
+cfdisk
 fdisk -l
 echo "formateando particiones..."
 mkfs.vfat -F32 /dev/sda1
