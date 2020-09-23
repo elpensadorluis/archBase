@@ -31,18 +31,18 @@ mkdir -p /mnt/boot/efi
 mount /dev/sda1 /mnt/boot/efi
 mount /dev/sda4 /mnt/home
 
-pacstrap /mnt base base-devel linux linux-firmware efibootmgr os-prober mtools ntfs-3g networkmanager gvfs gvfs-afc gvfs-mtp xdg-user-dirs
-pacstrap /mnt netctl wpa_supplicant dialog
+# pacstrap /mnt base base-devel linux linux-firmware efibootmgr os-prober mtools ntfs-3g networkmanager gvfs gvfs-afc gvfs-mtp xdg-user-dirs
+# pacstrap /mnt netctl wpa_supplicant dialog
 
-genfstab -pU /mnt >> /mnt/etc/fstab
+# genfstab -pU /mnt >> /mnt/etc/fstab
 
-bash <(curl -o /mnt/installInChroot.sh https://raw.githubusercontent.com/elpensadorluis/archBase/master/installInChroot.sh)
+# bash <(curl -o /mnt/installInChroot.sh https://raw.githubusercontent.com/elpensadorluis/archBase/master/installInChroot.sh)
 
-arch-chroot /mnt
+# arch-chroot /mnt
 
-echo "───────────────────────────────────┤.desmontando particiones├─"
-umount -R /mnt
+# echo "───────────────────────────────────┤.desmontando particiones├─"
+# umount -R /mnt
 
-echo "Ahora toca reiniciar el sistema..."
+# echo "Ahora toca reiniciar el sistema..."
 
 
